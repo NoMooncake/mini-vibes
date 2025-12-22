@@ -32,13 +32,23 @@ DIMINISHERS = {"kinda", "kindof", "sorta", "sortof", "a_bit", "a", "little"}
 # 4) Negations
 NEGATIONS = {"not", "dont", "don't", "never", "no", "cant", "can't", "wont", "won't"}
 
-# 5) Concerning phrases (starter; keep small, we’ll expand later)
+# 5) Concerning phrases
 # NOTE: This is NOT a diagnosis; it's just a flag for human review.
 CONCERNING_PHRASES = {
+    # explicit
     "i want to disappear",
-    "no one would care",
-    "i can't do this anymore",
-    "i dont want to be here",
     "i don't want to be here",
+    "i dont want to be here",
     "hurt myself",
+    "hurting myself",
+
+    # implicit / youth-like
+    "no one would care",
+    "nobody would care",
+    "everything feels too heavy",
+    "i can't do this anymore",
+    "i cant do this anymore",
+    "nothing matters anymore",
+    "what's the point",
 }
+

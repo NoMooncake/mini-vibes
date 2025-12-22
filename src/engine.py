@@ -61,10 +61,19 @@ def assess_risk(
         engine_flags.append("persistent_negative_pattern")
         explanation.append("Negative mood appears repeatedly across recent check-ins.")
 
+    # Rule E: moderate negative score => watch
+    if -0.55 <= score <= -0.30:
+        engine_flags.append("moderate_negative_entry")
+        explanation.append("Overall sentiment indicates moderate and persistent negativity.")
+
     # Determine risk level (simple priority)
     if "needs_human_review" in engine_flags:
         risk = "alert"
-    elif score <= -0.75 or "persistent_negative_pattern" in engine_flags:
+    elif (
+        score <= -0.75
+        or "persistent_negative_pattern" in engine_flags
+        or "moderate_negative_entry" in engine_flags
+    ):
         risk = "watch"
     else:
         risk = "safe"
