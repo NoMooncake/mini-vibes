@@ -1,0 +1,18 @@
+text,emotion_hint,risk_label,reason_tag
+"I was tired today but math class was kind of fun.",tired,safe,stress_school
+"School was boring but nothing really bad happened.",okay,safe,stress_school
+"I felt nervous before the quiz but it went fine.",anxious,safe,stress_school
+"I like hanging out with my friends after school.",happy,safe,
+"Today was normal, just a regular day.",,safe,
+
+"I feel tired all the time and don’t really want to talk to anyone.",sad,watch,withdrawal
+"Nothing really makes me excited lately.",numb,watch,hopelessness
+"I get stressed every time I think about school.",stressed,watch,stress_school
+"I feel like I mess things up a lot.",sad,watch,self_blame
+"I feel lonely even when people are around.",sad,watch,loneliness
+"I’ve been angry a lot and don’t know why.",angry,watch,anger_outburst
+
+"Sometimes I don’t want to be here anymore.",,alert,self_harm_hint
+"I feel like nobody would care if I disappeared.",sad,alert,hopelessness
+"I can’t do this anymore, everything feels too heavy.",stressed,alert,hopelessness
+"I think about hurting myself when things get bad.",,alert,self_harm_hint
