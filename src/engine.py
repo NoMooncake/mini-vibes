@@ -19,6 +19,8 @@ def assess_risk(
     current: AnalysisResult,
     recent_scores: Optional[List[float]] = None,
     recent_flags: Optional[List[List[str]]] = None,
+    watch_threshold: float = -0.45,   
+    alert_threshold: float = -0.75,
 ) -> AlertResult:
     """
     Explainable rule-based engine.
@@ -45,7 +47,7 @@ def assess_risk(
         explanation.append("Journal contains concerning phrases that warrant human review.")
 
     # Rule B: very low score
-    if score <= -0.75:
+    if score <= alert_threshold:
         engine_flags.append("very_negative_entry")
         explanation.append("Current check-in is strongly negative (low sentiment score).")
 
@@ -62,19 +64,25 @@ def assess_risk(
         explanation.append("Negative mood appears repeatedly across recent check-ins.")
 
     # Rule E: moderate negative score => watch
-    if -0.55 <= score <= -0.30:
-        engine_flags.append("moderate_negative_entry")
-        explanation.append("Overall sentiment indicates moderate and persistent negativity.")
+    # if -0.55 <= score <= -0.30:
+    #     engine_flags.append("moderate_negative_entry")
+    #     explanation.append("Overall sentiment indicates moderate and persistent negativity.")
+
+    # Rule E: watch threshold on single entry
+    if score <= watch_threshold:
+        engine_flags.append("watch_threshold_triggered")
+        explanation.append("Sentiment score crosses the watch threshold.")
 
     # Determine risk level (simple priority)
     if "needs_human_review" in engine_flags:
         risk = "alert"
     elif (
-        score <= -0.75
+        score <= alert_threshold
         or "persistent_negative_pattern" in engine_flags
-        or "moderate_negative_entry" in engine_flags
+        or "watch_threshold_triggered" in engine_flags
     ):
         risk = "watch"
+
     else:
         risk = "safe"
 
