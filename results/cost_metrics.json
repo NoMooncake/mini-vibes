@@ -1,0 +1,73 @@
+[
+  {
+    "name": "A_emotion_only",
+    "n": 15,
+    "total_cost": 33.0,
+    "avg_cost_per_entry": 2.2,
+    "by_true_label_cost": {
+      "safe": 1.0,
+      "watch": 0.0,
+      "alert": 32.0
+    },
+    "by_error_pair_cost": {
+      "alert->safe": 20.0,
+      "alert->watch": 12.0,
+      "safe->watch": 1.0
+    },
+    "cost_matrix": {
+      "alert->safe": 10.0,
+      "alert->watch": 6.0,
+      "watch->safe": 3.0,
+      "safe->watch": 1.0,
+      "safe->alert": 5.0,
+      "watch->alert": 2.0
+    }
+  },
+  {
+    "name": "B_text_only",
+    "n": 15,
+    "total_cost": 28.0,
+    "avg_cost_per_entry": 1.8666666666666667,
+    "by_true_label_cost": {
+      "safe": 0.0,
+      "watch": 18.0,
+      "alert": 10.0
+    },
+    "by_error_pair_cost": {
+      "watch->safe": 18.0,
+      "alert->safe": 10.0
+    },
+    "cost_matrix": {
+      "alert->safe": 10.0,
+      "alert->watch": 6.0,
+      "watch->safe": 3.0,
+      "safe->watch": 1.0,
+      "safe->alert": 5.0,
+      "watch->alert": 2.0
+    }
+  },
+  {
+    "name": "C_hybrid",
+    "n": 15,
+    "total_cost": 26.0,
+    "avg_cost_per_entry": 1.7333333333333334,
+    "by_true_label_cost": {
+      "safe": 1.0,
+      "watch": 15.0,
+      "alert": 10.0
+    },
+    "by_error_pair_cost": {
+      "watch->safe": 15.0,
+      "alert->safe": 10.0,
+      "safe->watch": 1.0
+    },
+    "cost_matrix": {
+      "alert->safe": 10.0,
+      "alert->watch": 6.0,
+      "watch->safe": 3.0,
+      "safe->watch": 1.0,
+      "safe->alert": 5.0,
+      "watch->alert": 2.0
+    }
+  }
+]
