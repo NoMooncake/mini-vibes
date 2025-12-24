@@ -3,13 +3,14 @@
 A local, reproducible research prototype that explores **explainable risk flagging**
 for middle-school student check-ins.
 
-Students select an emotion and write a short journal entry.
+Students select an emotion and write a short journal entry.  
 The system produces:
+
 - a lightweight sentiment score
 - an explainable **risk level** (`safe` / `watch` / `alert`)
 - human-readable reasons for each flag (non-diagnostic)
 
-**Important**
+**Important**  
 This project uses **synthetic data only** and is **not a medical or clinical tool**.
 It is intended for research, experimentation, and system design exploration.
 
@@ -21,21 +22,23 @@ This repository studies a **rule-based, explainable baseline** for detecting
 potential emotional risk in short youth journal entries.
 
 Rather than maximizing raw accuracy, the system prioritizes:
+
 - interpretability
 - conservative flagging
-- class-aware evaluation (especially for rare but critical cases)
+- class-aware and cost-aware evaluation
 
 The goal is to demonstrate how different signal sources contribute to risk detection
-and why **accuracy alone is insufficient** in safety-critical domains.
+and why **accuracy alone is insufficient** in safety-critical domains such as
+school mental-health support.
 
 ---
 
 ## Inputs and Outputs
 
 ### Inputs
-- `emotion_hint`
+- `emotion_hint`  
   A self-reported emotion selected from an emotion wheel (may be missing).
-- `text`
+- `text`  
   A short journal-style entry (1–2 sentences).
 
 ### Outputs
@@ -120,27 +123,70 @@ Three baselines are evaluated on the same corpus:
 | B Text-only | 0.533 | 0.482 | 0.000 | 0.750 |
 | C Hybrid | 0.533 | 0.547 | 0.167 | 0.750 |
 
-### Why accuracy is misleading here
+### Why accuracy is misleading
 
-The emotion-only baseline achieves higher accuracy, yet **fails to detect any
-`alert` cases**.
-This demonstrates why **macro-averaged metrics and per-class recall** are essential
-when evaluating risk-flagging systems.
+The emotion-only baseline achieves the highest accuracy, yet **fails to detect any
+`alert` cases**. This highlights a key limitation of accuracy in safety-critical
+settings: it does not reflect the severity of different error types.
+
+Macro-averaged metrics and per-class recall provide a more informative view of system
+behavior under class imbalance.
 
 ---
 
-## Hybrid Model Visualizations
+## Cost-Sensitive Evaluation
 
-### Confusion Matrix
-![Confusion Matrix (Hybrid)](results/confusion_matrix_C.png)
+To better reflect real-world consequences, we evaluate each baseline using a
+**cost-sensitive framework** in which different misclassifications incur different
+penalties.
 
-### Per-class Precision / Recall / F1
-![PRF (Hybrid)](results/prf_C.png)
+### Summary
 
-Full experiment outputs are stored in:
+| Experiment | Total Cost | Avg Cost |
+|-----------|------------|----------|
+| A Emotion-only | 33.0 | 2.20 |
+| B Text-only | 28.0 | 1.87 |
+| **C Hybrid** | **26.0** | **1.73** |
+
+Although accuracy differences are modest, the hybrid system incurs the **lowest
+overall risk cost**, indicating fewer high-severity failures (e.g., missed alerts).
+
+A detailed discussion of the cost framework is provided in:
 ```
-results/metrics.json
+COST_SENSITIVE_EVAL.md
 ```
+
+---
+
+## Threshold Sensitivity Analysis
+
+We further analyze how the **watch decision threshold** affects system behavior.
+By sweeping the threshold across a range of values, we observe:
+
+- **Alert recall remains stable**, indicating decoupling from watch sensitivity.
+- **Watch recall decreases only when the system becomes overly conservative**.
+- **Total cost exhibits a clear low-cost plateau**.
+
+### Key finding
+
+A stable low-cost region exists for:
+```
+watch_threshold ∈ [-0.35, -0.50]
+```
+
+Within this interval, the system minimizes total risk cost while maintaining
+consistent alert detection.
+
+### Visualizations
+
+#### Cost vs Threshold
+![Threshold Cost Curve](results/threshold_cost_curve.png)
+
+#### Recall vs Threshold
+![Threshold Recall Curve](results/threshold_recall_curve.png)
+
+These curves illustrate the trade-off between missed risk and over-flagging,
+and show how threshold selection encodes institutional risk tolerance.
 
 ---
 
@@ -149,8 +195,9 @@ results/metrics.json
 - This system performs **risk flagging**, not diagnosis.
 - All outputs are intended for **human interpretation and review**.
 - Data is synthetic and does not represent real individuals.
-- Youth language includes sarcasm, slang, and context dependence that remain challenging
-  for rule-based systems.
+- Youth language includes sarcasm, slang, and contextual nuance that remain
+  challenging for rule-based approaches.
+- Results are illustrative rather than statistically generalizable.
 
 ---
 
