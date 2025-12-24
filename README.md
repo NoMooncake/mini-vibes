@@ -221,6 +221,7 @@ mini-vibes/
   app/                # CLI interface
   src/                # analyzer, engine, experiments
   data/               # synthetic corpus and annotation guide
+  docs/               # cost sensitive evaluation
   results/            # metrics and plots
   tests/              # unit tests
 ```
