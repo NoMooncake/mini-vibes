@@ -152,9 +152,7 @@ Although accuracy differences are modest, the hybrid system incurs the **lowest
 overall risk cost**, indicating fewer high-severity failures (e.g., missed alerts).
 
 A detailed discussion of the cost framework is provided in:
-```
-COST_SENSITIVE_EVAL.md
-```
+**[Cost_Sensitive_Eval](docs/COST_SENSITIVE_EVAL.md)** 
 
 ---
 
