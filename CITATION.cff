@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: "Mini-Vibes: Explainable Risk Flagging for Youth Check-ins"
+message: "If you use this work, please cite it as below."
+type: software
+authors:
+  - family-names: Wu
+    given-names: Davie
+keywords:
+  - explainable ai
+  - mental health
+  - youth well-being
+  - risk detection
+  - cost-sensitive evaluation
+  - rule-based systems
+abstract: >
+  Mini-Vibes is a local, reproducible research prototype that explores
+  explainable risk flagging for short youth journal entries.
+  The system emphasizes interpretability, cost-sensitive evaluation,
+  and threshold-based decision analysis rather than raw accuracy.
+license: MIT
+repository-code: https://github.com/NoMooncake/mini-vibes

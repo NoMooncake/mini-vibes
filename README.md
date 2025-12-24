@@ -167,6 +167,21 @@ By sweeping the threshold across a range of values, we observe:
 - **Watch recall decreases only when the system becomes overly conservative**.
 - **Total cost exhibits a clear low-cost plateau**.
 
+---
+
+## Baseline Diagnostics (Hybrid C)
+
+#### Confusion Matrix (Hybrid C)
+![Confusion Matrix (Hybrid)](results/confusion_matrix_C.png)
+
+#### Per-class Precision / Recall / F1
+![PRF (Hybrid)](results/prf_C.png)
+
+These plots summarize baseline classification behavior and are provided for diagnostic completeness.
+The primary evaluation focus of this work is cost-sensitive and threshold-based analysis.
+
+---
+
 ### Key finding
 
 A stable low-cost region exists for:
